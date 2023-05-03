@@ -11,11 +11,11 @@ module.exports = {
   },
   devtool: 'source-map',
   plugins: [
-    new CopyPlugin({
-      patterns: [{ from: 'public' }],
-    }),
     new HtmlWebpackPlugin({
       template: 'public/index.html',
+    }),
+    new CopyPlugin({
+      patterns: [{ from: 'public' }],
     })
   ],
   module: {
