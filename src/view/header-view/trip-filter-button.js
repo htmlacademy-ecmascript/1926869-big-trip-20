@@ -1,14 +1,12 @@
 import {createElement} from '../../render.js';
 
-function createInfoTemplate() {
-  return `<div class="trip-main">
-  <section class="trip-main__trip-info  trip-info">
-  </section>`;
+function createTripButton() {
+  return '<button class="trip-main__event-add-btn  btn  btn--big  btn--yellow" type="button">New event</button>';
 }
 
-export default class Info {
+export default class TripButton {
   getTemplate() {
-    return createInfoTemplate();
+    return createTripButton();
   }
 
   getElement() {
