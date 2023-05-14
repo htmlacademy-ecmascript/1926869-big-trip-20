@@ -19,7 +19,6 @@ export default class HeaderPresenter {
 
     render(new Filters(), this.filtersContainer);
     const tripMain = document.querySelector('.trip-main');
-    // render(new TripFilters(), tripControlsFilter);
     render(new TripButton(), tripMain);
   }
 }
