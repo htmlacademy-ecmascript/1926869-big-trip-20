@@ -1,44 +1,37 @@
 import { render } from '../../render.js';
 import CreateSort from '../main-view/sort.js';
 import CreateList from '../main-view/list.js';
-import CreatePointForm from '../main-view/point/create-point-form.js';
-import CreatePointHeader from '../main-view/point/create-point-header.js';
-import CreatePointOffers from '../main-view/point/create-point-offers.js';
-import CreatePointDestinations from '../main-view/point/create-point-destinations.js';
+import PointEdit from '../main-view/point-endt.js';
 import Point from '../main-view/pont.js';
 import { getRandomArrayElement } from '../../utils.js';
 
 
 export default class EventsPresenter {
-  constructor({eventsContainer, destinationsModel, offerModel}) {
+  constructor({eventsContainer, routePointsModel, offerModel,destinationModel}) {
     this.eventsContainer = eventsContainer;
-    this.destinationsModel = destinationsModel;
+    this.routePointsModel = routePointsModel;
     this.offerModel = offerModel;
+    this.destinationModel = destinationModel;
   }
 
   init() {
-    this.destinations = [...this.destinationsModel.getDestinations()];
-    this.offerModel = [...this.offerModel.getOffers()];
-    // const getDestination = (point) => this.destinations.find((item) => item.id === point.destination);
-
+    this.tripRoute = getRandomArrayElement([...this.routePointsModel.getRoutePoints()]);
+    this.points = [...this.routePointsModel.getRoutePoints()];
+    this.offerModel = [...this.offerModel.getByType(this.tripRoute)];
+    this.destination = [...this.destinationModel.getDestinations()];
+    // console.log(this.destinationModel.getById(this.points)[i])
     render(new CreateSort(), this.eventsContainer); // сортировка
     render(new CreateList(), this.eventsContainer); // создает список (<ul>)
+    const pointEdit = new PointEdit();
+    pointEdit.getElement(
+      this.tripRoute,
+      this.offerModel,
+      this.destinationModel.getById(this.tripRoute)
+    );
+
     const listElement = document.querySelector('.trip-events__list');
-    render(new CreatePointForm(), listElement); // создаёт форму в списке (li >> form)
-    const eventForm = listElement.querySelector('.event--edit');
-    render(new CreatePointHeader(), eventForm);
-    render(new CreatePointOffers({
-      offers: getRandomArrayElement(this.offerModel)
-    }), eventForm);
-    const eventDetails = listElement.querySelector('.event__details');
-    render(new CreatePointDestinations({
-      destination: getRandomArrayElement(this.destinations)
-    }), eventDetails);
-
-    // console.log(getRandomArrayElement(this.offerModel))
-
-    for (let i = 0; i < 3; i++) {
-      render(new Point(), listElement);
+    for (let i = 0; i < this.points.length; i++) {
+      render(new Point(this.points[i], this.destinationModel.getById(this.points[i])), listElement);
     }
   }
 }
