@@ -2,7 +2,7 @@ import { render } from '../../render.js';
 import CreateSort from '../main-view/sort.js';
 import CreateList from '../main-view/list.js';
 import PointEdit from '../main-view/point-endt.js';
-import Point from '../main-view/pont.js';
+import Point from '../main-view/point.js';
 import { getRandomArrayElement } from '../../utils.js';
 
 
