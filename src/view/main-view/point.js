@@ -16,7 +16,6 @@ function createPoint(point, destination) {
   const durationTime = getTimeDiff(dateFrom, dateTo);
 
 
-  console.log(basePrice)
   return `<li class="trip-events__item">
   <div class="event">
     <time class="event__date" datetime="${dateFormat}">${eventDate}</time>
