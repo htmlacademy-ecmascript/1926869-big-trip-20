@@ -1,28 +1,37 @@
 import { render } from '../../render.js';
 import CreateSort from '../main-view/sort.js';
 import CreateList from '../main-view/list.js';
-import CreatePoint from '../main-view/create-point.js';
-import Point from '../main-view/pont.js';
-import EditPoint from '../main-view/edit-point.js';
-import CreatePointOffers from '../main-view/create-point-offers.js';
-import CreatePointDestination from '../main-view/create-point-destination-view.js';
+import PointEdit from '../main-view/point-endt.js';
+import Point from '../main-view/point.js';
+import { getRandomArrayElement } from '../../utils.js';
 
 
 export default class EventsPresenter {
-  constructor({eventsContainer}) {
+  constructor({eventsContainer, routePointsModel, offerModel,destinationModel}) {
     this.eventsContainer = eventsContainer;
+    this.routePointsModel = routePointsModel;
+    this.offerModel = offerModel;
+    this.destinationModel = destinationModel;
   }
 
   init() {
-    render(new CreateSort(), this.eventsContainer);
-    render(new CreateList(), this.eventsContainer);
+    this.tripRoute = getRandomArrayElement([...this.routePointsModel.getRoutePoints()]);
+    this.points = [...this.routePointsModel.getRoutePoints()];
+    this.offerModel = [...this.offerModel.getByType(this.tripRoute)];
+    this.destination = [...this.destinationModel.getDestinations()];
+    // console.log(this.destinationModel.getById(this.points)[i])
+    render(new CreateSort(), this.eventsContainer); // сортировка
+    render(new CreateList(), this.eventsContainer); // создает список (<ul>)
+    const pointEdit = new PointEdit();
+    pointEdit.getElement(
+      this.tripRoute,
+      this.offerModel,
+      this.destinationModel.getById(this.tripRoute)
+    );
+
     const listElement = document.querySelector('.trip-events__list');
-    render(new EditPoint(), listElement);
-    for (let i = 0; i < 3; i++) {
-      render(new Point(), listElement);
+    for (let i = 0; i < this.points.length; i++) {
+      render(new Point(this.points[i], this.destinationModel.getById(this.points[i])), listElement);
     }
-    render(new CreatePoint(), listElement);
-    render(new CreatePointOffers(), listElement);
-    render(new CreatePointDestination(), listElement);
   }
 }

@@ -1,23 +1,38 @@
 import {createElement} from '../../render.js';
+import { humanizeDate, getTimeDiff } from '../../utils.js';
 
-function createPoint() {
+const DATE_FORMAT = 'YYYY-MM-DD';
+const EVENT_DATE = 'MMM DD';
+const TIME_FORMAT = 'HH:mm';
+
+function createPoint(point, destination) {
+
+  const { basePrice, dateFrom, dateTo, type } = point;
+
+  const dateFormat = humanizeDate(dateFrom, DATE_FORMAT);
+  const eventDate = humanizeDate(dateFrom, EVENT_DATE);
+  const startTime = humanizeDate(dateFrom, TIME_FORMAT);
+  const endTime = humanizeDate(dateTo, TIME_FORMAT);
+  const durationTime = getTimeDiff(dateFrom, dateTo);
+
+
   return `<li class="trip-events__item">
   <div class="event">
-    <time class="event__date" datetime="2019-03-18">MAR 18</time>
+    <time class="event__date" datetime="${dateFormat}">${eventDate}</time>
     <div class="event__type">
-      <img class="event__type-icon" width="42" height="42" src="img/icons/taxi.png" alt="Event type icon">
+      <img class="event__type-icon" width="42" height="42" src="img/icons/${type}.png" alt="Event type icon">
     </div>
-    <h3 class="event__title">Taxi Amsterdam</h3>
+    <h3 class="event__title">${type} ${destination.name}</h3>
     <div class="event__schedule">
       <p class="event__time">
-        <time class="event__start-time" datetime="2019-03-18T10:30">10:30</time>
+        <time class="event__start-time" datetime="${dateFormat}T${startTime}">${startTime}</time>
         &mdash;
-        <time class="event__end-time" datetime="2019-03-18T11:00">11:00</time>
+        <time class="event__end-time" datetime="${dateFormat}T${endTime}">${endTime}</time>
       </p>
-      <p class="event__duration">30M</p>
+      <p class="event__duration">${durationTime}</p>
     </div>
     <p class="event__price">
-      &euro;&nbsp;<span class="event__price-value">20</span>
+      &euro;&nbsp;<span class="event__price-value">${basePrice}</span>
     </p>
     <h4 class="visually-hidden">Offers:</h4>
     <ul class="event__selected-offers">
@@ -41,8 +56,13 @@ function createPoint() {
 }
 
 export default class Point {
+  constructor (tripRoute, destination) {
+    this.tripRoute = tripRoute;
+    this.destination = destination;
+  }
+
   getTemplate() {
-    return createPoint();
+    return createPoint(this.tripRoute,this.destination);
   }
 
   getElement() {
