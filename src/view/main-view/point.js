@@ -5,9 +5,9 @@ const DATE_FORMAT = 'YYYY-MM-DD';
 const EVENT_DATE = 'MMM DD';
 const TIME_FORMAT = 'HH:mm';
 
-function createPoint(point, destination) {
+function createPoint(point) {
 
-  const { basePrice, dateFrom, dateTo, type } = point;
+  const { basePrice, dateFrom, dateTo, type } = point.routePoint;
 
   const dateFormat = humanizeDate(dateFrom, DATE_FORMAT);
   const eventDate = humanizeDate(dateFrom, EVENT_DATE);
@@ -22,7 +22,7 @@ function createPoint(point, destination) {
     <div class="event__type">
       <img class="event__type-icon" width="42" height="42" src="img/icons/${type}.png" alt="Event type icon">
     </div>
-    <h3 class="event__title">${type} ${destination.name}</h3>
+    <h3 class="event__title">${type} ${point.destination.name}</h3>
     <div class="event__schedule">
       <p class="event__time">
         <time class="event__start-time" datetime="${dateFormat}T${startTime}">${startTime}</time>
@@ -58,11 +58,13 @@ function createPoint(point, destination) {
 export default class Point extends AbstractView {
   #tripRoute = null;
   #destination = null;
+
   constructor (tripRoute, destination) {
     super();
     this.#tripRoute = tripRoute;
     this.#destination = destination;
   }
+
 
   get template() {
     return createPoint(this.#tripRoute,this.#destination);

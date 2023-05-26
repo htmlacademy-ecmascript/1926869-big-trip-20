@@ -21,9 +21,10 @@ export default class EventsPresenter {
 
   init() {
     this.tripRoute = getRandomArrayElement([...this.#routePointsModel.routePoints]);
-    this.points = [...this.#routePointsModel.routePoints];
+    this.#routePointsModel = [...this.#routePointsModel.routePoints];
     this.#offerModel = [...this.#offerModel.getByType(this.tripRoute)];
     this.destination = [...this.#destinationModel.destinations];
+
     render(new CreateSort(), this.#eventsContainer); // сортировка
     render(new CreateList(), this.#eventsContainer); // создает список (<ul>)
     const pointEdit = new PointEdit();
@@ -33,9 +34,16 @@ export default class EventsPresenter {
       this.#destinationModel.getById(this.tripRoute)
     );
 
-    const listElement = document.querySelector('.trip-events__list');
-    for (let i = 0; i < this.points.length; i++) {
-      render(new Point(this.points[i], this.#destinationModel.getById(this.points[i])), listElement);
+
+    for (let i = 0; i < this.#routePointsModel.length; i++) {
+      this.#renderRoutePoint(this.#routePointsModel[i], this.#destinationModel.getById(this.#routePointsModel[i]));
     }
+  }
+
+  #renderRoutePoint(routePoint, destination) {
+    const routePointComponent = new Point({routePoint, destination});
+    const listElement = document.querySelector('.trip-events__list');
+    render(routePointComponent, listElement);
+
   }
 }
