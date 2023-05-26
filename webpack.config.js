@@ -20,7 +20,7 @@ module.exports = {
         globOptions: {
           ignore: ['**/index.html'],
         },
-    }],
+      }],
     })
   ],
   module: {
@@ -34,6 +34,10 @@ module.exports = {
             presets: ['@babel/preset-env']
           },
         },
+      },
+      {
+        test: /\.css$/i,
+        use: ['style-loader', 'css-loader']
       },
     ],
   },

@@ -1,22 +1,11 @@
-import {createElement} from '../../render.js';
+import AbstractView from '../../framework/view/abstract-view.js';
 
 function createMessageLoading() {
   return '<p class="trip-events__msg">Loading...</p>';
 }
 
-export default class CreateMessageLoading {
-  getTemplate() {
+export default class CreateMessageLoading extends AbstractView{
+  get template() {
     return createMessageLoading();
-  }
-
-  getElement() {
-    if (!this.element) {
-      this.element = createElement(this.getTemplate());
-    }
-    return this.element;
-  }
-
-  removeElement() {
-    this.element = null;
   }
 }

@@ -1,4 +1,4 @@
-import {createElement} from '../../../render.js';
+import AbstractView from '../../../framework/view/abstract-view.js';
 
 
 function createPointOffers(routePointsModel, offerModel) {
@@ -30,24 +30,16 @@ function createPointOffers(routePointsModel, offerModel) {
 </section>`;
 }
 
-export default class CreatePointOffers {
+export default class CreatePointOffers extends AbstractView {
+  #routePointsModel = null;
+  #offerModel = null;
   constructor(routePointsModel, offerModel) {
-    this.routePointsModel = routePointsModel;
-    this.offerModel = offerModel;
+    super();
+    this.#routePointsModel = routePointsModel;
+    this.#offerModel = offerModel;
   }
 
-  getTemplate() {
-    return createPointOffers(this.routePointsModel, this.offerModel);
-  }
-
-  getElement() {
-    if (!this.element) {
-      this.element = createElement(this.getTemplate());
-    }
-    return this.element;
-  }
-
-  removeElement() {
-    this.element = null;
+  get template() {
+    return createPointOffers(this.#routePointsModel, this.#offerModel);
   }
 }

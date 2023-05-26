@@ -1,4 +1,4 @@
-import {createElement} from '../../../render.js';
+import AbstractView from '../../../framework/view/abstract-view.js';
 
 function createPictureTemplate(pictures) {
   return pictures.map((picture) =>
@@ -18,24 +18,15 @@ function createPointDestinations(description) {
 }
 
 
-export default class CreatePointDestinations {
+export default class CreatePointDestinations extends AbstractView {
+  #destinations = null;
   constructor(destinations) {
-    this.destination = destinations;
+    super();
+    this.#destinations = destinations;
   }
 
-  getTemplate() {
-    return createPointDestinations(this.destination);
-  }
-
-  getElement() {
-    if (!this.element) {
-      this.element = createElement(this.getTemplate());
-    }
-    return this.element;
-  }
-
-  removeElement() {
-    this.element = null;
+  get template() {
+    return createPointDestinations(this.#destinations);
   }
 }
 

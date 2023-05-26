@@ -1,7 +1,7 @@
-import { render } from '../../render.js';
+import { render } from '../../framework/render.js';
 import CreateSort from '../main-view/sort.js';
 import CreateList from '../main-view/list.js';
-import PointEdit from '../main-view/point-endt.js';
+import PointEdit from '../main-view/point-edit.js';
 import Point from '../main-view/point.js';
 import { getRandomArrayElement } from '../../utils.js';
 
@@ -23,7 +23,7 @@ export default class EventsPresenter {
     render(new CreateSort(), this.eventsContainer); // сортировка
     render(new CreateList(), this.eventsContainer); // создает список (<ul>)
     const pointEdit = new PointEdit();
-    pointEdit.getElement(
+    pointEdit.getTemplate(
       this.tripRoute,
       this.offerModel,
       this.destinationModel.getById(this.tripRoute)

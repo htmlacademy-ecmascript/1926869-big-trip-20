@@ -1,4 +1,4 @@
-import {createElement} from '../../render.js';
+import AbstractView from '../../framework/view/abstract-view.js';
 import { humanizeDate, getTimeDiff } from '../../utils.js';
 
 const DATE_FORMAT = 'YYYY-MM-DD';
@@ -55,24 +55,16 @@ function createPoint(point, destination) {
 </li>`;
 }
 
-export default class Point {
+export default class Point extends AbstractView {
+  #tripRoute = null;
+  #destination = null;
   constructor (tripRoute, destination) {
-    this.tripRoute = tripRoute;
-    this.destination = destination;
+    super();
+    this.#tripRoute = tripRoute;
+    this.#destination = destination;
   }
 
-  getTemplate() {
-    return createPoint(this.tripRoute,this.destination);
-  }
-
-  getElement() {
-    if (!this.element) {
-      this.element = createElement(this.getTemplate());
-    }
-    return this.element;
-  }
-
-  removeElement() {
-    this.element = null;
+  get template() {
+    return createPoint(this.#tripRoute,this.#destination);
   }
 }

@@ -1,4 +1,4 @@
-import { createElement } from '../../../render.js';
+import AbstractView from '../../../framework/view/abstract-view.js';
 import { CITY_NAMES, TYPES, EMPTY_ROUTEPOINT } from '../../../const.js';
 import { humanizeDate, capitalize } from '../../../utils.js';
 
@@ -65,23 +65,14 @@ function createPointHeader(routePoint) {
 </header>`;
 }
 
-export default class CreatePointHeader {
+export default class CreatePointHeader extends AbstractView {
+  #routePoint = null;
   constructor(routePoint = EMPTY_ROUTEPOINT) {
-    this.routePoint = routePoint;
+    super();
+    this.#routePoint = routePoint;
   }
 
-  getTemplate() {
-    return createPointHeader(this.routePoint);
-  }
-
-  getElement() {
-    if (!this.element) {
-      this.element = createElement(this.getTemplate());
-    }
-    return this.element;
-  }
-
-  removeElement() {
-    this.element = null;
+  get template() {
+    return createPointHeader(this.#routePoint);
   }
 }

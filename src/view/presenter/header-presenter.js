@@ -1,4 +1,4 @@
-import { render, RenderPosition } from '../../render.js';
+import { render, RenderPosition } from '../../framework/render.js';
 import Info from '../header-view/info-view.js';
 import TripInfo from '../header-view/trip-info-view.js';
 import TripInfoCost from '../header-view/trip-info-cost.js';
