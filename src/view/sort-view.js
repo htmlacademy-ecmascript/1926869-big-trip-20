@@ -1,9 +1,9 @@
-import AbstractView from '../../framework/view/abstract-view.js';
+import AbstractView from '../framework/view/abstract-view.js';
 
-function createSort() {
+function createSortTemplate() {
   return `<form class="trip-events__trip-sort  trip-sort" action="#" method="get">
   <div class="trip-sort__item  trip-sort__item--day">
-    <input id="sort-day" class="trip-sort__input  visually-hidden" type="radio" name="trip-sort" value="sort-day" checked>
+    <input id="sort-day" class="trip-sort__input  visually-hidden" type="radio" name="trip-sort" value="sort-day">
     <label class="trip-sort__btn" for="sort-day">Day</label>
   </div>
 
@@ -18,7 +18,7 @@ function createSort() {
   </div>
 
   <div class="trip-sort__item  trip-sort__item--price">
-    <input id="sort-price" class="trip-sort__input  visually-hidden" type="radio" name="trip-sort" value="sort-price">
+    <input id="sort-price" class="trip-sort__input  visually-hidden" type="radio" name="trip-sort" value="sort-price" checked>
     <label class="trip-sort__btn" for="sort-price">Price</label>
   </div>
 
@@ -26,11 +26,14 @@ function createSort() {
     <input id="sort-offer" class="trip-sort__input  visually-hidden" type="radio" name="trip-sort" value="sort-offer" disabled>
     <label class="trip-sort__btn" for="sort-offer">Offers</label>
   </div>
-</form>`;
+</form> `;
 }
 
-export default class CreateSort extends AbstractView {
+export default class SortView extends AbstractView{
   get template() {
-    return createSort();
+    return createSortTemplate();
   }
+
+
 }
+

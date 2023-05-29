@@ -1,26 +1,29 @@
-import HeaderPresenter from './view/presenter/header-presenter.js';
-import EventsPresenter from './view/presenter/events-presenter.js';
+import FilterView from './view/filter-view.js';
+import SortView from './view/sort-view.js';
+import TripInfoView from './view/trip-info-view.js';
+import TripFormPresenter from './presenter/trip-form-presenter.js';
 import RoutePointsModel from './model/route-points-model.js';
-import OfferModel from './model/offers-model.js';
-import DestinationModel from './model/destination-model.js';
-const tripMain = document.querySelector('.trip-main');
-const filtersElement = document.querySelector('.trip-controls__filters');
-const tripEvents = document.querySelector('.trip-events');
+import DestinationsModel from './model/destinations-model.js';
+import OffersModel from './model/offers-model.js';
+import { render, RenderPosition } from './framework/render.js';
 
-const headerPresenter = new HeaderPresenter({
-  mainContainer: tripMain,
-  filtersContainer: filtersElement
-});
+const tripInfoContainter = document.querySelector('.trip-main');
+const filterContainer = document.querySelector('.trip-controls__filters');
+const sortContainer = document.querySelector('.trip-events');
 
 const routePointsModel = new RoutePointsModel();
-const offerModel = new OfferModel();
-const destinationModel = new DestinationModel();
-const eventsPresenter = new EventsPresenter({
-  eventsContainer: tripEvents,
+const destinationsModel = new DestinationsModel();
+const offersModel = new OffersModel();
+
+const formPresenter = new TripFormPresenter({
+  routePointListContainer: sortContainer,
   routePointsModel,
-  offerModel,
-  destinationModel
+  destinationsModel,
+  offersModel
 });
 
-headerPresenter.init();
-eventsPresenter.init();
+render(new TripInfoView, tripInfoContainter, RenderPosition.AFTERBEGIN);
+render(new FilterView(), filterContainer);
+render(new SortView(), sortContainer);
+
+formPresenter.init();

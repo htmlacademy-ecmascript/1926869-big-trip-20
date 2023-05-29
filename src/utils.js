@@ -40,6 +40,7 @@ function getRandomArrayElement(items) {
 }
 
 function capitalize(string) {
-  return `${string.slice(0,1).toUpperCase()}${string.slice(1)}`;
+  return `${string[0].toUpperCase()}${string.slice(1)}`;
 }
+
 export {getRandomArrayElement, humanizeDate, capitalize, getTimeDiff};

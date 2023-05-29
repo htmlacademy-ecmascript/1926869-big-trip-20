@@ -1,6 +1,7 @@
 import {mockDestinations} from '../mock/destination.js';
 
-export default class DestinationModel {
+
+export default class DestinationsModel {
   #destinations = mockDestinations;
 
   get destinations() {
@@ -10,4 +11,5 @@ export default class DestinationModel {
   getById(routePoint) {
     return this.#destinations.find((destination) => destination.id === routePoint.id);
   }
+
 }

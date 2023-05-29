@@ -1,6 +1,6 @@
-import {mockOffers} from '../mock/offers.js';
+import {mockOffers} from '../mock/offer.js';
 
-export default class OfferModel {
+export default class OffersModel {
   #offers = mockOffers;
 
   get offers() {
@@ -11,7 +11,8 @@ export default class OfferModel {
     return this.#offers.find((offer) => offer.type === routePoint.type).offers;
   }
 
-  getById(routePoint) {
+  getById(routePoint){
     return this.getByType(routePoint).filter((offer) => routePoint.offers.includes(offer.id));
   }
+
 }

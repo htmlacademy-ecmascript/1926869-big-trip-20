@@ -14,10 +14,6 @@ const mockDestinations = [
       {
         src: 'https://loremflickr.com/248/152?random=45',
         description: getRandomArrayElement(DESCRIPTIONS)
-      },
-      {
-        src: 'https://loremflickr.com/248/152?random=33',
-        description: getRandomArrayElement(DESCRIPTIONS)
       }
     ]
   },
