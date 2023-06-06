@@ -4,6 +4,7 @@ import CreateSort from '../view/body/sort-view.js';
 import EditTripPoint from '../view/body/edit-form-view.js';
 import CreatePoint from '../view/body/point-view.js';
 import CreateTripPointFormView from '../view/body/create-form-view.js';
+import EmptyListMessage from '../view/empty-list.js';
 
 export default class BoardPresenter {
   #points = null;
@@ -21,11 +22,14 @@ export default class BoardPresenter {
 
   createTripList = new CreateTripList();
   init() {
-    render(new CreateSort(), this.tripBoardList); // сортировка
-    render(this.createTripList, this.tripBoardList); // создает список <ul>
-    render(new CreateTripPointFormView(), this.createTripList.element);
+    if (this.#points.length) {
+      render(new CreateSort(), this.tripBoardList); // сортировка
+      render(this.createTripList, this.tripBoardList); // создает список <ul>
+      render(new CreateTripPointFormView(), this.createTripList.element);
 
-    this.#points.forEach(this.#renderPoint.bind(this));
+      this.#points.forEach(this.#renderPoint.bind(this));
+    }
+    render(new EmptyListMessage, this.tripBoardList);
   }
 
   #renderPoint(pointData) {
