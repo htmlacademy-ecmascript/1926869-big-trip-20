@@ -136,7 +136,23 @@ export const offers = [
   },
   {
     'type': 'sightseeing',
-    'offers': []
+    'offers': [
+      {
+        'id': 1,
+        'title': 'Add hostel',
+        'price': 76
+      },
+      {
+        'id': 2,
+        'title': 'Laundry',
+        'price': 133
+      },
+      {
+        'id': 3,
+        'title': 'Order a meal from the restaurant',
+        'price': 50
+      }
+    ]
   },
   {
     'type': 'ship',
